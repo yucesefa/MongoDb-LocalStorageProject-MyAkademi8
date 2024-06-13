@@ -1,0 +1,36 @@
+﻿@model List<MongoDbProject.Dtos.ProductDtos.ResultProductWithCategoryDto>
+@{
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+    int count = 0;
+}
+<div class="container">
+    <br /><br />
+    <table class="table table-hover">
+        <tr>
+            <th>#</th>
+            <th>Ürün</th>
+            <th>Stok</th>
+            <th>Fiyat</th>
+            <th>Kategori</th>
+            <th>Görsel</th>
+            <th>Sil</th>
+            <th>Güncelle</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            count++;
+            <tr>
+                <td>@count</td>
+                <td>@item.Name</td>
+                <td>@item.Stock</td>
+                <td>@item.Price</td>
+                <td>@item.Category.CategoryName</td>
+                <td>@item.ImageUrl</td>
+                <td><a class="btn btn-danger" href="/Product/RemoveProduct/@item.ProductId">Sil</a></td>
+                <td><a class="btn btn-info" href="/Product/UpdateProduct/@item.ProductId">Güncele</a></td>
+            </tr>
+        }
+    </table>
+    <a class="btn btn-info" href="/Product/CreateProduct/">Ekle</a>
+
+</div>

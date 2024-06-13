@@ -1,0 +1,25 @@
+﻿@model MongoDbProject.Dtos.ProductDtos.CreateProductDto
+@{
+    Layout = "~/Views/Shared/_UILayout.cshtml";
+}
+
+<div class="container">
+    <br />
+    <br>
+    <form method="post">
+        <label>Ürün</label>
+        <input type="text" class="form-control" asp-for="Name" />
+        <br>
+        <label>Stok</label>
+        <input type="text" class="form-control" asp-for="Stock" />
+        <br>
+        <label>Fiyat</label>
+        <input type="text" class="form-control" asp-for="Price" />
+        <br>
+        @Html.DropDownListFor(x => x.CategoryId, (List<SelectListItem>)ViewBag.CategoryList, "Kategori", new { @class = "custom-select form-control" })
+        <label>Görsel</label>
+        <input type="text" class="form-control" asp-for="ImageUrl" />
+        <br>
+        <button class="btn btn-primary">Ürünü Ekle</button>
+    </form>
+</div>
