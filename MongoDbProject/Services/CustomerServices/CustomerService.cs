@@ -12,7 +12,7 @@ namespace MongoDbProject.Services.CustomerServices
         private readonly IMongoCollection<Customer> _customerCollection;
         private readonly IMapper _mapper;
 
-        public CustomerService(IMapper mapper, IMongoCollection<Customer> customerCollection,IDatabaseSettings _databaseSettings)
+        public CustomerService(IMapper mapper,IDatabaseSettings _databaseSettings)
 
         {
             var client = new MongoClient(_databaseSettings.ConnectionString);
