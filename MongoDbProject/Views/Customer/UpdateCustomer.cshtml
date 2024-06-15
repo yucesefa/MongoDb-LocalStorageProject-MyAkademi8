@@ -8,12 +8,9 @@
     <br />
     <br>
     <form method="post">
-        <label>Müşteri Adı</label>
+        <label>Müşteri Adı Soyadı</label>
         <input type="hidden" asp-for="CustomerId" />
-        <input type="text" class="form-control" asp-for="CustomerName" />
-        <br>
-        <label>Müşteri Soyadı</label>
-        <input type="text" class="form-control" asp-for="CustomerSurname" />
+        <input type="text" class="form-control" asp-for="CustomerFullName" />
         <br>
         <label>Adres</label>
         <input type="text" class="form-control" asp-for="CustomerAddress" />

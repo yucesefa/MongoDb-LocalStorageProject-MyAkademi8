@@ -20,7 +20,7 @@ namespace MongoDbProject.Controllers
             return View(values);
         }
         [HttpGet]
-        public async Task<IActionResult> CreateCustomer()
+        public IActionResult CreateCustomer()
         {
             return View();
         }

@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Services\OrderServices\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="wwwroot\sidebar-02\.DS_Store" />
     <None Include="wwwroot\sidebar-02\css\.DS_Store" />
     <None Include="wwwroot\sidebar-02\css\bootstrap\.DS_Store" />
