@@ -20,9 +20,9 @@ namespace MongoDbProject.Services.ProductServices
             _categoryCollection = database.GetCollection<Category>(_databaseSettings.CategoryCollectionName);
             _mapper = mapper;
         }
-        public async Task CreateProductAsync(CreateProductDto createUpdateDto)
+        public async Task CreateProductAsync(CreateProductDto createProductDto)
         {
-            var value = _mapper.Map<Product>(createUpdateDto);
+            var value = _mapper.Map<Product>(createProductDto);
             await _productCollection.InsertOneAsync(value);
         }
 
@@ -44,6 +44,16 @@ namespace MongoDbProject.Services.ProductServices
         }
 
         public async Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryAsync()
+        {
+            var value = await _productCollection.Find(x => true).ToListAsync();
+            foreach (var item in value)
+            {
+                item.Category = await _categoryCollection.Find(x => x.CategoryId == item.CategoryId).FirstAsync();
+            }
+            return _mapper.Map<List<ResultProductWithCategoryDto>>(value);
+        }
+
+        public async Task<List<ResultProductWithCategoryDto>> GetProductWithCategoryExcelListAsync()
         {
             var value = await _productCollection.Find(x => true).ToListAsync();
             foreach (var item in value)

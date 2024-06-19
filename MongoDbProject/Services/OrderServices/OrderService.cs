@@ -25,8 +25,17 @@ namespace MongoDbProject.Services.OrderServices
 
         public async Task CreateOrderAsync(CreateOrderDto createOrderDto)
         {
-            var value = _mapper.Map<Order>(createOrderDto);
-            await _orderCollection.InsertOneAsync(value);
+            var values = await _customerCollection.Find(x => true).ToListAsync();
+            var product = await _productCollection.Find(x => x.ProductId == x.ProductId).FirstOrDefaultAsync();
+            if(product.Stock >0)
+            {
+                product.Stock = product.Stock - createOrderDto.OrderProductStock;
+                var value = _mapper.Map<Order>(createOrderDto);
+                await _orderCollection.InsertOneAsync(value);
+                await _productCollection.FindOneAndReplaceAsync(x => x.ProductId == product.ProductId, product);
+            }
+            
+            
         }
 
         public async Task DeleteOrderAsync(string id)

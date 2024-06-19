@@ -5,6 +5,7 @@ namespace MongoDbProject.Dtos.OrderDtos
     public class UpdateOrderDto
     {
         public string OrderId { get; set; }
+        public int OrderProductStock { get; set; }
         public DateTime OrderDate { get; set; }
         public bool Status { get; set; }
 

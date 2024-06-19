@@ -1,6 +1,7 @@
 ﻿@model List<MongoDbProject.Dtos.CategoryDtos.ResultCategoryDto>
 @{
-    Layout = "~/Views/Shared/_UILayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    int count = 0;
 }
 
 <div class="container">
@@ -14,8 +15,9 @@
         </tr>
         @foreach (var item in Model)
         {
+            count++;
             <tr>
-                <td>@item.CategoryId</td>
+                <td>@count</td>
                 <td>@item.CategoryName</td>
                 <td><a class="btn btn-danger" href="/Category/RemoveCategory/@item.CategoryId">Sil</a></td>
                 <td><a class="btn btn-info" href="/Category/UpdateCategory/@item.CategoryId">Güncele</a></td>

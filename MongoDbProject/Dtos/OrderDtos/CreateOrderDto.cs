@@ -4,6 +4,7 @@ namespace MongoDbProject.Dtos.OrderDtos
 {
     public class CreateOrderDto
     {
+        public int OrderProductStock { get; set; }
         public DateTime OrderDate { get; set; }
         public bool Status { get; set; }
 

@@ -3,7 +3,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using MongoDbProject.Dtos.CategoryDtos;
 using MongoDbProject.Dtos.ProductDtos;
 using MongoDbProject.Services.CategoryServices;
+using MongoDbProject.Services.GoogleCloud;
 using MongoDbProject.Services.ProductServices;
+using System.Security.Cryptography.Xml;
 
 namespace MongoDbProject.Controllers
 {
@@ -11,11 +13,13 @@ namespace MongoDbProject.Controllers
     {
         private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
+        private readonly ICloudStorageService _cloudStorageService;
 
-        public ProductController(IProductService productService, ICategoryService categoryService)
+        public ProductController(IProductService productService, ICategoryService categoryService,ICloudStorageService cloudStorageService)
         {
             _productService = productService;
             _categoryService = categoryService;
+            _cloudStorageService = cloudStorageService;
         }
 
         public async Task<IActionResult> ProductList()
@@ -38,6 +42,13 @@ namespace MongoDbProject.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateProduct(CreateProductDto createProductDto)
         {
+
+            if (createProductDto.ImageUrl != null)
+            {
+                createProductDto.SavedFileName = GenerateFileNameToSave(createProductDto.ImageUrl.FileName);
+                createProductDto.SavedUrl = await _cloudStorageService.UploadFileAsync(createProductDto.ImageUrl, createProductDto.SavedFileName);
+            }
+
             await _productService.CreateProductAsync(createProductDto);
             return RedirectToAction("ProductList");
         }
@@ -45,6 +56,12 @@ namespace MongoDbProject.Controllers
         {
             await _productService.DeleteProductAsync(id);
             return RedirectToAction("ProductList");
+        }
+        private string? GenerateFileNameToSave(string incomingFileName)
+        {
+            var fileName = Path.GetFileNameWithoutExtension(incomingFileName);
+            var extension = Path.GetExtension(incomingFileName);
+            return $"{fileName}-{DateTime.Now.ToUniversalTime().ToString("yyyyMMddHHmmss")}{extension}";
         }
 
         [HttpGet]

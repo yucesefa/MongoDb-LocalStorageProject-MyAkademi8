@@ -1,7 +1,7 @@
 ﻿@model List<MongoDbProject.Dtos.OrderDtos.ResultOrderWithCustomerAndProductDto>
 @{
     ViewData["Title"] = "OrderList";
-    Layout = "~/Views/Shared/_UILayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
     int count = 0;
 }
 <div class="container">
@@ -10,9 +10,9 @@
         <tr>
             <th>#</th>
             <th>Sipariş Tarihi</th>
-            <th>Durum</th>
             <th>Müşteri</th>
             <th>Ürün</th>
+            <th>Ürün Adet</th>
             <th>Sil</th>
             <th>Güncelle</th>
         </tr>
@@ -22,9 +22,9 @@
             <tr>
                 <td>@count</td>
                 <td>@item.OrderDate</td>
-                <td>@item.Status</td>
                 <td>@item.Customer.CustomerFullName</td>
                 <td>@item.Product.Name</td>
+                <td>@item.OrderProductStock</td>
                 <td><a class="btn btn-danger" href="/Order/RemoveOrder/@item.OrderId">Sil</a></td>
                 <td><a class="btn btn-info" href="/Order/UpdateOrder/@item.OrderId">Güncelle</a></td>
             </tr>
